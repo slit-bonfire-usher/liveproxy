@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: liveproxy-kodi
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeploy: true

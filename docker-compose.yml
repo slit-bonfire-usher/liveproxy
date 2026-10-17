@@ -1,0 +1,24 @@
+
+services:
+  liveproxy:
+    image: python:3.11-slim
+    container_name: liveproxy
+    working_dir: /app
+    init: true
+    restart: unless-stopped
+
+    environment:
+      PYTHONUNBUFFERED: "1"
+      PORT: "53422"
+
+    ports:
+      # Localhost only: do not expose LiveProxy directly to the internet.
+      - "127.0.0.1:53422:53422"
+
+    volumes:
+      - ./app:/app
+
+    command: >
+      sh -c "pip install --no-cache-dir liveproxy==2.0.0 streamlink yt-dlp
+      && exec liveproxy --host 0.0.0.0 --port 53422"
+
